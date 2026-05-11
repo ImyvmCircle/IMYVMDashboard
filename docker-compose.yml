@@ -6,6 +6,7 @@ services:
     container_name: imyvm-dashboard
     restart: unless-stopped
     environment:
+      IMYVM_DATA_SOURCE: mock
       NODE_ENV: production
       NEXT_TELEMETRY_DISABLED: "1"
       PORT: "3000"

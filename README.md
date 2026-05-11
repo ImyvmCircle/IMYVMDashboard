@@ -23,6 +23,8 @@ pnpm dev
 
 开发服务器默认运行在 `http://localhost:3000`。
 
+本地查看效果时可以打开 `http://localhost:3000/dev/lab`。该页面是开发专用预览台，用于集中查看建筑卡片、Wiki 卡片、表单控件、空状态和错误态；生产环境默认不可访问。
+
 ## 验证
 
 ```bash
@@ -41,9 +43,23 @@ docker compose up -d --build
 
 ## 已预留接口
 
+- `GET /api/health`：运行状态和当前数据源健康检查。
 - `GET /api/server/summary`：服务器总览、建筑展示、Wiki、新闻、排行榜 mock 数据。
 - `GET /api/players/:name`：玩家查询 mock 数据。
 - `POST /api/submissions`：问题支持、社区申请 mock 提交。当前只做服务端校验并返回模拟工单号，不持久化。
+
+## 配置
+
+复制 `.env.example` 为 `.env.local` 后按需调整：
+
+```bash
+cp .env.example .env.local
+```
+
+当前支持的配置：
+
+- `IMYVM_DATA_SOURCE=mock`：使用内置 mock 数据。后续接入插件 HTTP、地图标记、数据库或统计服务时，在 `src/lib/data-source/` 下新增 adapter。
+- `NEXT_TELEMETRY_DISABLED=1`：关闭 Next.js telemetry。
 
 ## 后续接入建议
 

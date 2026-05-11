@@ -1,13 +1,12 @@
 import { NextResponse } from "next/server";
-import { players } from "@/lib/mock-data";
+import { dataSource } from "@/lib/data-source";
 
 export async function GET(
   _request: Request,
   context: { params: Promise<{ name: string }> },
 ) {
   const { name } = await context.params;
-  const normalizedName = decodeURIComponent(name).trim().toLowerCase();
-  const player = players.find((candidate) => candidate.name.toLowerCase() === normalizedName);
+  const player = await dataSource.getPlayerProfile(decodeURIComponent(name));
 
   if (!player) {
     return NextResponse.json(

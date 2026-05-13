@@ -1,8 +1,6 @@
 # IMYVMDashboard
 
-IMYVM Minecraft 服务器网页仪表盘。首版重点是建筑展示、游戏 Wiki、服务器状态、玩家排行榜和玩家查询；支持与社区申请作为底部弱化入口保留。
-
-当前项目不直接读取真实服务器数据，而是通过 mock 数据和 API route 占位运行。后续部署到 Minecraft Ubuntu 服务器后，应优先从游戏侧数据源接入，例如插件 HTTP、地图标记、数据库、RCON 或统计服务。
+IMYVM Minecraft 服务器网页仪表盘。包含服务器景观和建筑展示、游戏 Wiki、服务器状态、玩家排行榜和玩家查询，另含有支持与社区申请入口等内容。
 
 ## 技术栈
 
@@ -61,10 +59,10 @@ cp .env.example .env.local
 - `IMYVM_DATA_SOURCE=mock`：使用内置 mock 数据。后续接入插件 HTTP、地图标记、数据库或统计服务时，在 `src/lib/data-source/` 下新增 adapter。
 - `NEXT_TELEMETRY_DISABLED=1`：关闭 Next.js telemetry。
 
-## 后续接入建议
+## 待处理接入
 
-1. 用真实 adapter 替换 `src/lib/mock-data.ts`，优先接入游戏内数据源。
-2. 为建筑展示接入地图标记、地标登记或截图资源。
-3. 为 Wiki 接入游戏内资料、配置导出或独立内容仓库。
+项目目前通过 mock 数据和 API route 占位运行。后续为部署需要，应设计游戏源接入接口，例如插件 HTTP、地图标记、数据库、RCON 或统计服务。
+
+1. 用真实 adapter 替换 `src/lib/mock-data.ts`，接入游戏内数据源。
 4. 为提交类接口接入数据库、工单系统或 Discord/GitHub webhook。
 5. 增加账号绑定和权限校验后，再开放敏感玩家数据或管理功能。

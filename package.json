@@ -4,11 +4,19 @@
   "private": true,
   "packageManager": "pnpm@11.0.9",
   "scripts": {
+    "predev": "node scripts/ensure-resources.mjs",
     "dev": "next dev",
+    "prebuild": "node scripts/ensure-resources.mjs",
     "build": "next build",
+    "prestart": "node scripts/ensure-resources.mjs",
     "start": "next start",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "resources:ensure": "node scripts/ensure-resources.mjs",
+    "resources:download": "node scripts/download-resources.mjs",
+    "resources:import-minecraft": "node scripts/import-minecraft-assets.mjs",
+    "resources:pack": "node scripts/package-resources.mjs",
+    "resources:unpack": "node scripts/unpack-resources.mjs"
   },
   "dependencies": {
     "next": "16.2.6",

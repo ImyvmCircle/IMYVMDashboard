@@ -1,0 +1,383 @@
+@layer base {
+  :root {
+    --color-page: #1a120b;
+    --color-page-deep: #0f0a06;
+    --color-surface: #3d2918;
+    --color-surface-muted: #2a1b11;
+    --color-surface-strong: #8d5c2d;
+    --color-text: #fff4cf;
+    --color-text-muted: #e0caa0;
+    --color-border: #140d08;
+    --color-primary: #78b94e;
+    --color-primary-dark: #427b29;
+    --color-accent: #ffd166;
+    --color-warning: #ffbf69;
+    --shadow-panel:
+      0 12px 0 rgba(0, 0, 0, 0.34),
+      0 24px 44px rgba(0, 0, 0, 0.3);
+    --pixel-inset-light: inset 4px 4px 0 rgba(255, 255, 255, 0.14);
+    --pixel-inset-dark: inset -4px -4px 0 rgba(0, 0, 0, 0.34);
+  }
+
+  body {
+    background: var(--color-page);
+    color: var(--color-text);
+    font-family: "Trebuchet MS", "Microsoft YaHei", system-ui, sans-serif;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: #2a1b11;
+  }
+}
+
+@layer components {
+  .portal-shell {
+    min-height: 100vh;
+    background:
+      linear-gradient(180deg, rgba(114, 180, 78, 0.16), rgba(114, 180, 78, 0.08) 18%, transparent 18%),
+      url("/resources/minecraft/block/grass_block_top.png") top center / 96px 96px repeat-x,
+      url("/resources/minecraft/block/dirt.png") center / 96px 96px repeat,
+      radial-gradient(circle at top, rgba(120, 185, 78, 0.22), transparent 22rem),
+      linear-gradient(180deg, rgba(8, 12, 7, 0.15), rgba(8, 12, 7, 0.38)),
+      repeating-linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.03) 0,
+        rgba(255, 255, 255, 0.03) 2px,
+        transparent 2px,
+        transparent 18px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.18) 0,
+        rgba(0, 0, 0, 0.18) 2px,
+        transparent 2px,
+        transparent 18px
+      ),
+      linear-gradient(180deg, #2b1b10 0%, #1a120b 58%, #0f0a06 100%);
+  }
+
+  .portal-container {
+    width: min(1180px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 32px 0 56px;
+  }
+
+  .hero-panel,
+  .section-panel,
+  .card,
+  .stat-card,
+  .empty-state {
+    border: 4px solid var(--color-border);
+    box-shadow: var(--pixel-inset-light), var(--pixel-inset-dark), var(--shadow-panel);
+  }
+
+  .hero-panel,
+  .card {
+    background:
+      url("/resources/minecraft/block/oak_planks.png") 0 0 / 64px 64px repeat,
+      linear-gradient(90deg, rgba(0, 0, 0, 0.14) 2px, transparent 2px) 0 0 / 18px 18px,
+      linear-gradient(180deg, #a56f3b, #7b4b23);
+  }
+
+  .section-panel,
+  .stat-card,
+  .empty-state {
+    background:
+      url("/resources/minecraft/block/cobblestone.png") 0 0 / 64px 64px repeat,
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px) 0 0 / 20px 20px,
+      linear-gradient(180deg, #382519, #24160e);
+  }
+
+  .hero-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 32px;
+    align-items: stretch;
+    padding: 36px;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .eyebrow,
+  .section-eyebrow {
+    color: #c8eca0;
+    font-size: 0.76rem;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .hero-title {
+    max-width: 780px;
+    color: #fff9dc;
+    font-size: clamp(2.5rem, 7vw, 5.2rem);
+    font-weight: 900;
+    line-height: 1.02;
+    letter-spacing: -0.05em;
+    text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.38);
+  }
+
+  .hero-copy,
+  .card-copy,
+  .empty-copy,
+  .form-note {
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.8;
+  }
+
+  .hero-copy {
+    max-width: 720px;
+    color: #f4ddb0;
+    font-size: 1.08rem;
+  }
+
+  .hero-actions,
+  .support-grid,
+  .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .button-primary,
+  .button-secondary {
+    display: inline-flex;
+    min-height: 46px;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #16110d;
+    padding: 0 18px;
+    font-weight: 900;
+    transition:
+      transform 120ms ease,
+      filter 120ms ease;
+    box-shadow:
+      inset 3px 3px 0 rgba(255, 255, 255, 0.22),
+      inset -3px -3px 0 rgba(0, 0, 0, 0.36),
+      0 4px 0 rgba(0, 0, 0, 0.34);
+  }
+
+  .button-primary {
+    background:
+      url("/resources/minecraft/block/grass_block_top.png") center / 48px 48px repeat,
+      linear-gradient(180deg, #8fd35d, #4b8f2e);
+    color: #14220b;
+  }
+
+  .button-secondary {
+    background:
+      url("/resources/minecraft/block/stone.png") center / 48px 48px repeat,
+      linear-gradient(180deg, #b3b3b3, #666666);
+    color: #161616;
+  }
+
+  .button-primary:disabled,
+  .button-secondary:disabled {
+    cursor: not-allowed;
+    opacity: 0.58;
+  }
+
+  .button-primary:not(:disabled):hover,
+  .button-secondary:not(:disabled):hover {
+    transform: translateY(-1px);
+    filter: brightness(1.05);
+  }
+
+  .status-grid,
+  .resource-grid,
+  .info-grid,
+  .content-grid,
+  .dev-grid {
+    display: grid;
+    gap: 16px;
+  }
+
+  .status-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .resource-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .content-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .info-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .dev-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .layout-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+    gap: 24px;
+  }
+
+  .section-panel {
+    margin-top: 24px;
+    padding: 28px;
+  }
+
+  .section-header {
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    margin-top: 4px;
+    color: #fff7d1;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.36);
+  }
+
+  .card,
+  .stat-card,
+  .empty-state {
+    padding: 20px;
+  }
+
+  .card-title,
+  .empty-title {
+    color: #fff7d1;
+    font-size: 1.14rem;
+    font-weight: 900;
+  }
+
+  .stat-label {
+    color: #c6e3a4;
+    font-size: 0.86rem;
+    font-weight: 900;
+  }
+
+  .stat-value {
+    margin-top: 8px;
+    color: #fff8dd;
+    font-size: 2rem;
+    font-weight: 900;
+  }
+
+  .status-pill {
+    display: inline-flex;
+    width: fit-content;
+    margin-top: 16px;
+    background: #1c120c;
+    color: var(--color-accent);
+    padding: 6px 12px;
+    font-size: 0.86rem;
+    font-weight: 900;
+    border: 2px solid #110b07;
+  }
+
+  .media-placeholder {
+    display: grid;
+    min-height: 300px;
+    place-items: center;
+    border: 4px solid #1a120c;
+    background:
+      linear-gradient(180deg, transparent 0, transparent 22%, rgba(0, 0, 0, 0.22) 22%, rgba(0, 0, 0, 0.22) 24%, transparent 24%),
+      url("/resources/minecraft/block/grass_block_top.png") top / 96px 96px repeat,
+      url("/resources/minecraft/block/dirt.png") center / 96px 96px repeat,
+      linear-gradient(180deg, rgba(118, 177, 86, 0.85) 0%, rgba(118, 177, 86, 0.85) 18%, rgba(69, 100, 46, 0.92) 18%, rgba(69, 100, 46, 0.92) 22%, rgba(113, 76, 40, 0.95) 22%, rgba(53, 35, 20, 0.96) 100%),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0.18));
+    box-shadow: var(--pixel-inset-light), var(--pixel-inset-dark);
+  }
+
+  .empty-state {
+    width: 100%;
+    max-width: 460px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .stack {
+    display: grid;
+    gap: 16px;
+  }
+
+  .form-stack {
+    display: grid;
+    gap: 12px;
+  }
+
+  .form-control {
+    min-height: 46px;
+    width: 100%;
+    border: 3px solid #140d08;
+    background:
+      url("/resources/minecraft/block/deepslate.png") center / 48px 48px repeat,
+      linear-gradient(145deg, #3a2c22, #16110d);
+    color: #fff4cf;
+    padding: 0 14px;
+    font-weight: 700;
+    outline: none;
+    box-shadow: var(--pixel-inset-light), var(--pixel-inset-dark);
+  }
+
+  textarea.form-control {
+    min-height: 112px;
+    padding-top: 12px;
+    resize: vertical;
+  }
+
+  .form-control::placeholder {
+    color: #9f8868;
+  }
+
+  .form-control:disabled {
+    color: #d1b68e;
+    cursor: not-allowed;
+    opacity: 0.92;
+  }
+
+  .error-card {
+    border-color: #5f1616;
+    background: linear-gradient(180deg, #3b1616, #251010);
+    color: #ffb0b0;
+  }
+
+  @media (max-width: 900px) {
+    .hero-panel,
+    .layout-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .resource-grid,
+    .content-grid,
+    .dev-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 620px) {
+    .portal-container {
+      width: min(100% - 20px, 1180px);
+      padding-top: 20px;
+    }
+
+    .hero-panel,
+    .section-panel {
+      padding: 20px;
+    }
+
+    .status-grid,
+    .resource-grid,
+    .content-grid,
+    .info-grid,
+    .dev-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

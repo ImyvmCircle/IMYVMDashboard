@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import { siteContent } from "@/resources/site-content";
 import "./globals.css";
+import "@/resources/theme.css";
 
 export const metadata: Metadata = {
-  title: "IMYVM Dashboard",
-  description: "IMYVM Minecraft 服务器门户与玩家数据仪表盘",
+  title: siteContent.metadata.title,
+  description: siteContent.metadata.description,
 };
 
 export default function RootLayout({

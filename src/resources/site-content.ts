@@ -1,0 +1,112 @@
+export const siteContent = {
+  metadata: {
+    title: "IMYVM Dashboard",
+    description: "IMYVM 服务器网页门户、资源中心与资料入口",
+  },
+  hero: {
+    eyebrow: "IMYVM Web Portal",
+    title: "面向玩家的服务器门户、资源中心与资料入口。",
+    copy: "当前未接入服务器数据源，所有未提供的内容统一显示为暂无。页面结构按资源、资料、建筑、玩家与支持模块组织。",
+  },
+  navigation: [
+    { label: "资源模块", href: "#resources" },
+    { label: "建筑档案", href: "#builds" },
+    { label: "游戏资料", href: "#wiki" },
+    { label: "玩家与支持", href: "#players" },
+  ],
+  statusLabels: {
+    onlinePlayers: "在线玩家",
+    serverVersion: "服务器版本",
+    recentTps: "近期 TPS",
+    recordedBuilds: "已记录建筑",
+  },
+  sections: {
+    resources: { eyebrow: "Resources", title: "资源模块" },
+    featuredBuild: { eyebrow: "Featured Build", title: "重点建筑" },
+    buildGallery: { eyebrow: "Build Gallery", title: "建筑档案" },
+    wiki: { eyebrow: "Knowledge Base", title: "游戏资料" },
+    players: { eyebrow: "Players", title: "玩家数据" },
+    news: { eyebrow: "News", title: "公告" },
+    playerLookup: { eyebrow: "Player Lookup", title: "玩家查询" },
+    support: { eyebrow: "Support", title: "支持与申请" },
+  },
+  resourceModules: [
+    {
+      title: "资源下载",
+      description: "客户端、整合包、材质包和公开资源入口。",
+      status: "暂无",
+    },
+    {
+      title: "地图导航",
+      description: "网页地图、交通路线、地标坐标和世界边界信息。",
+      status: "暂无",
+    },
+    {
+      title: "游戏资料",
+      description: "规则、指令、玩法机制、常见问题和资料索引。",
+      status: "暂无",
+    },
+    {
+      title: "社区入口",
+      description: "支持、申请、公告、协作和反馈入口。",
+      status: "暂无",
+    },
+  ],
+  emptyStates: {
+    featuredBuild: { title: "暂无建筑展示", description: "没有可展示的建筑图片或资料。" },
+    buildGallery: { title: "暂无建筑档案", description: "没有可公开展示的建筑资料。" },
+    wiki: { title: "暂无游戏资料", description: "没有已发布的规则、指令或资料条目。" },
+    resources: { title: "暂无资源条目", description: "没有可下载或可访问的资源。" },
+    players: { title: "暂无玩家排行", description: "没有可展示的玩家数据。" },
+    playerLookup: { title: "暂无玩家资料接口", description: "目前没有可查询的玩家数据。" },
+    submissions: { title: "暂无提交保存接口", description: "目前没有可保存的支持或申请提交入口。" },
+    news: { title: "暂无公告", description: "没有已发布的公告内容。" },
+  },
+  supportLinks: [
+    {
+      title: "问题支持",
+      description: "暂无提交保存接口。",
+    },
+    {
+      title: "社区申请",
+      description: "暂无申请提交入口。",
+    },
+  ],
+  form: {
+    playerNamePlaceholder: "输入 Minecraft ID",
+    contactPlaceholder: "联系方式，例如 Discord / QQ / 邮箱",
+    contentPlaceholder: "暂无提交保存接口。",
+    lookupButton: "查询",
+    submitButton: "提交请求",
+    supportOption: "问题支持",
+    applicationOption: "社区申请",
+  },
+  labels: {
+    unavailable: "暂无",
+    coordinate: "坐标",
+    builders: "建造者",
+    status: "状态",
+  },
+  apiMessages: {
+    playerUnavailable: "暂无该玩家资料。",
+    submissionUnavailable: "暂无提交保存接口。",
+  },
+  devLab: {
+    eyebrow: "Local Dev Lab",
+    title: "本地效果预览台",
+    copy: "这个页面只用于 pnpm dev 时集中查看视觉组件、表单控件、空状态和错误态，不作为正式玩家入口。",
+    stats: ["在线玩家", "TPS", "版本", "建筑档案"],
+    cards: [
+      { title: "暂无建筑档案", description: "没有可公开展示的建筑资料。" },
+      { title: "暂无建筑截图", description: "没有可展示的建筑图片。" },
+      { title: "暂无游戏资料", description: "没有已发布的规则、指令或资料条目。" },
+      { title: "暂无资源条目", description: "没有可下载或可访问的资源。" },
+      { title: "暂无玩家排行", description: "没有可展示的玩家数据。" },
+    ],
+    formTitle: "表单控件",
+    stateTitle: "空状态与错误态",
+    unavailableState: "接口暂不可用",
+    unavailableDescription: "用于预览真实数据源异常时的提示样式。",
+    buttonLabel: "主操作按钮",
+  },
+} as const;

@@ -40,3 +40,19 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# managed large resources
+/public/resources/external/*
+!/public/resources/external/.gitkeep
+/public/resources/downloads/*
+!/public/resources/downloads/.gitkeep
+/public/resources/packages/*
+!/public/resources/packages/.gitkeep
+/public/resources/minecraft/*
+!/public/resources/minecraft/.gitkeep
+!/public/resources/minecraft/block/
+/public/resources/minecraft/block/*
+!/public/resources/minecraft/block/.gitkeep
+/resources/cache/
+/resources/packages/*
+!/resources/packages/.gitkeep

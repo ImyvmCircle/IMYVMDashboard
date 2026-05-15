@@ -1,0 +1,40 @@
+{
+  "assets": [
+    {
+      "id": "grass-block-top",
+      "source": "assets/minecraft/textures/block/grass_block_top.png",
+      "target": "minecraft/block/grass_block_top.png",
+      "usage": "页面顶部草地方块纹理"
+    },
+    {
+      "id": "dirt",
+      "source": "assets/minecraft/textures/block/dirt.png",
+      "target": "minecraft/block/dirt.png",
+      "usage": "泥土背景纹理"
+    },
+    {
+      "id": "oak-planks",
+      "source": "assets/minecraft/textures/block/oak_planks.png",
+      "target": "minecraft/block/oak_planks.png",
+      "usage": "木板面板纹理"
+    },
+    {
+      "id": "stone",
+      "source": "assets/minecraft/textures/block/stone.png",
+      "target": "minecraft/block/stone.png",
+      "usage": "石质按钮纹理"
+    },
+    {
+      "id": "cobblestone",
+      "source": "assets/minecraft/textures/block/cobblestone.png",
+      "target": "minecraft/block/cobblestone.png",
+      "usage": "石砖/卵石面板纹理"
+    },
+    {
+      "id": "deepslate",
+      "source": "assets/minecraft/textures/block/deepslate.png",
+      "target": "minecraft/block/deepslate.png",
+      "usage": "深板岩输入框纹理"
+    }
+  ]
+}

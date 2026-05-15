@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { dataSource } from "@/lib/data-source";
+import { siteContent } from "@/resources/site-content";
 
 export async function GET(
   _request: Request,
@@ -12,7 +13,7 @@ export async function GET(
     return NextResponse.json(
       {
         found: false,
-        message: "暂无该玩家资料。",
+        message: siteContent.apiMessages.playerUnavailable,
       },
       { status: 404 },
     );

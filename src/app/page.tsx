@@ -8,141 +8,97 @@ import type {
   ServerStatus,
   WikiEntry,
 } from "@/lib/data-source/types";
-
-const resourceModules = [
-  {
-    title: "资源下载",
-    description: "客户端、整合包、材质包和公开资源入口。",
-  },
-  {
-    title: "地图导航",
-    description: "网页地图、交通路线、地标坐标和世界边界信息。",
-  },
-  {
-    title: "游戏资料",
-    description: "规则、指令、玩法机制、常见问题和资料索引。",
-  },
-  {
-    title: "社区入口",
-    description: "支持、申请、公告、协作和反馈入口。",
-  },
-];
+import { siteContent } from "@/resources/site-content";
 
 export default async function Home() {
   const summary = await dataSource.getDashboardSummary();
   const statCards = getStatCards(summary.serverStatus);
 
   return (
-    <main className="pixel-bg min-h-screen overflow-hidden">
-      <section className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-5 py-6 sm:px-8 lg:px-10">
-        <header className="wood-panel block-frame grid gap-6 p-5 md:grid-cols-[1fr_0.85fr] md:p-8">
-          <div className="space-y-6">
-            <div className="inline-flex items-center gap-3 bg-[#211409] px-4 py-2 text-sm font-bold uppercase tracking-[0.28em] text-[#cce8a9]">
-              <span className="h-3 w-3 bg-[var(--grass)] shadow-[0_0_18px_var(--grass)]" />
-              IMYVM Web Portal
+    <main className="portal-shell">
+      <div className="portal-container">
+        <header className="hero-panel">
+          <div className="hero-content">
+            <p className="eyebrow">{siteContent.hero.eyebrow}</p>
+            <div>
+              <h1 className="hero-title">{siteContent.hero.title}</h1>
+              <p className="hero-copy">{siteContent.hero.copy}</p>
             </div>
-            <div className="space-y-4">
-              <h1 className="max-w-4xl text-4xl font-black leading-tight text-[#fff6ce] drop-shadow-[4px_4px_0_rgba(0,0,0,0.45)] sm:text-6xl">
-                面向玩家的服务器门户、资源中心与资料入口。
-              </h1>
-              <p className="max-w-3xl text-lg font-semibold leading-8 text-[#f2dfb2]">
-                当前未接入服务器数据源，所有未提供的内容统一显示为暂无。页面结构已按资源、资料、建筑、玩家与支持模块组织。
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <a className="stone-button px-5 py-3 font-black text-[#181818]" href="#resources">
-                查看资源模块
-              </a>
-              <a className="stone-button px-5 py-3 font-black text-[#181818]" href="#builds">
-                建筑档案
-              </a>
-              <a className="stone-button px-5 py-3 font-black text-[#181818]" href="#wiki">
-                游戏资料
-              </a>
-              <a className="stone-button px-5 py-3 font-black text-[#181818]" href="#players">
-                玩家与支持
-              </a>
-            </div>
+            <nav className="hero-actions" aria-label="页面模块导航">
+              {siteContent.navigation.map((item, index) => (
+                <a
+                  className={index === 0 ? "button-primary" : "button-secondary"}
+                  href={item.href}
+                  key={item.href}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </nav>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1">
+          <div className="status-grid">
             {statCards.map((card) => (
-              <div className="inventory-slot p-4" key={card.label}>
-                <p className="text-sm font-bold text-[#b8d89b]">{card.label}</p>
-                <p className="mt-2 text-3xl font-black text-[#fff6ce]">
-                  {card.value}
-                </p>
+              <div className="stat-card" key={card.label}>
+                <p className="stat-label">{card.label}</p>
+                <p className="stat-value">{card.value}</p>
               </div>
             ))}
           </div>
         </header>
 
-        <section className="block-frame bg-[#211409] p-5 md:p-6" id="resources">
-          <SectionHeading eyebrow="Resources" title="资源模块" />
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {resourceModules.map((module) => (
-              <article className="inventory-slot p-4" key={module.title}>
-                <h3 className="text-xl font-black text-[#fff6ce]">{module.title}</h3>
-                <p className="mt-2 min-h-20 text-sm font-semibold leading-6 text-[#d7c095]">
-                  {module.description}
-                </p>
-                <p className="mt-4 bg-[#1d130b] px-3 py-2 text-sm font-black text-[#ffd166]">
-                  暂无
-                </p>
+        <section className="section-panel" id="resources">
+          <SectionHeading {...siteContent.sections.resources} />
+          <div className="resource-grid">
+            {siteContent.resourceModules.map((module) => (
+              <article className="card" key={module.title}>
+                <h3 className="card-title">{module.title}</h3>
+                <p className="card-copy">{module.description}</p>
+                <p className="status-pill">{module.status}</p>
               </article>
             ))}
           </div>
           <ResourceList resources={summary.resources} />
         </section>
 
-        <section className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]" id="builds">
-          <article className="block-frame wood-panel p-5 md:p-6">
-            <p className="text-sm font-black uppercase tracking-[0.24em] text-[#21370f]">
-              Featured Build
-            </p>
-            <h2 className="mt-2 text-3xl font-black text-[#fff6ce] drop-shadow-[3px_3px_0_rgba(0,0,0,0.35)]">
-              重点建筑
-            </h2>
-            <div className="my-5 grid min-h-72 place-items-center border-4 border-[#1d130b] bg-[linear-gradient(135deg,#5f7f43,#2e4a28_45%,#1e2f1f)] p-6 shadow-[inset_8px_8px_0_rgba(255,255,255,0.12),inset_-8px_-8px_0_rgba(0,0,0,0.32)]">
-              <EmptyState title="暂无建筑展示" description="没有可展示的建筑图片或资料。" />
+        <section className="layout-grid" id="builds">
+          <article className="section-panel">
+            <SectionHeading {...siteContent.sections.featuredBuild} />
+            <div className="media-placeholder">
+              <EmptyState {...siteContent.emptyStates.featuredBuild} />
             </div>
-            <div className="mt-5 grid gap-3 sm:grid-cols-3">
-              <InfoTile label="坐标" value="暂无" />
-              <InfoTile label="建造者" value="暂无" />
-              <InfoTile label="状态" value="暂无" />
+            <div className="info-grid">
+              <InfoTile label={siteContent.labels.coordinate} value={siteContent.labels.unavailable} />
+              <InfoTile label={siteContent.labels.builders} value={siteContent.labels.unavailable} />
+              <InfoTile label={siteContent.labels.status} value={siteContent.labels.unavailable} />
             </div>
           </article>
 
-          <div className="block-frame bg-[#17110d] p-5 md:p-6">
-            <SectionHeading eyebrow="Build Gallery" title="建筑档案" />
+          <section className="section-panel">
+            <SectionHeading {...siteContent.sections.buildGallery} />
             <BuildGallery builds={summary.buildShowcase} />
-          </div>
+          </section>
         </section>
 
-        <section className="block-frame bg-[#2b1a10] p-5 md:p-6" id="wiki">
-          <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
-            <SectionHeading eyebrow="Knowledge Base" title="游戏资料" />
-            <span className="bg-[#16220f] px-3 py-2 text-sm font-bold text-[#bde59c]">
-              暂无
-            </span>
-          </div>
+        <section className="section-panel" id="wiki">
+          <SectionHeading {...siteContent.sections.wiki} />
           <WikiGrid entries={summary.wikiEntries} />
         </section>
 
-        <section className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]" id="players">
-          <div className="block-frame bg-[#211409] p-5 md:p-6">
-            <SectionHeading eyebrow="Players" title="玩家数据" />
+        <section className="layout-grid" id="players">
+          <section className="section-panel">
+            <SectionHeading {...siteContent.sections.players} />
             <Leaderboard entries={summary.leaderboards} />
-          </div>
+          </section>
 
           <PortalActions />
         </section>
 
-        <section className="block-frame bg-[#17110d] p-5 md:p-6">
-          <SectionHeading eyebrow="News" title="公告" />
+        <section className="section-panel">
+          <SectionHeading {...siteContent.sections.news} />
           <NewsGrid items={summary.newsItems} />
         </section>
-      </section>
+      </div>
     </main>
   );
 }
@@ -150,49 +106,56 @@ export default async function Home() {
 function getStatCards(serverStatus: ServerStatus) {
   return [
     {
-      label: "在线玩家",
+      label: siteContent.statusLabels.onlinePlayers,
       value:
         serverStatus.onlinePlayers === null || serverStatus.maxPlayers === null
-          ? "暂无"
+          ? siteContent.labels.unavailable
           : `${serverStatus.onlinePlayers} / ${serverStatus.maxPlayers}`,
     },
-    { label: "服务器版本", value: serverStatus.version ?? "暂无" },
     {
-      label: "近期 TPS",
-      value: serverStatus.tps === null ? "暂无" : serverStatus.tps.toFixed(1),
+      label: siteContent.statusLabels.serverVersion,
+      value: serverStatus.version ?? siteContent.labels.unavailable,
     },
     {
-      label: "已记录建筑",
-      value: serverStatus.recordedBuilds === null ? "暂无" : String(serverStatus.recordedBuilds),
+      label: siteContent.statusLabels.recentTps,
+      value:
+        serverStatus.tps === null
+          ? siteContent.labels.unavailable
+          : serverStatus.tps.toFixed(1),
+    },
+    {
+      label: siteContent.statusLabels.recordedBuilds,
+      value:
+        serverStatus.recordedBuilds === null
+          ? siteContent.labels.unavailable
+          : String(serverStatus.recordedBuilds),
     },
   ];
 }
 
 function SectionHeading({ eyebrow, title }: { eyebrow: string; title: string }) {
   return (
-    <div className="mb-5">
-      <p className="text-sm font-black uppercase tracking-[0.24em] text-[var(--gold)]">
-        {eyebrow}
-      </p>
-      <h2 className="text-3xl font-black text-[#fff6ce]">{title}</h2>
-    </div>
+    <header className="section-header">
+      <p className="section-eyebrow">{eyebrow}</p>
+      <h2 className="section-title">{title}</h2>
+    </header>
   );
 }
 
 function EmptyState({ title, description }: { title: string; description: string }) {
   return (
-    <div className="inventory-slot w-full max-w-md p-5 text-center">
-      <p className="text-xl font-black text-[#fff6ce]">{title}</p>
-      <p className="mt-2 text-sm font-semibold leading-6 text-[#d7c095]">{description}</p>
+    <div className="empty-state">
+      <p className="empty-title">{title}</p>
+      <p className="empty-copy">{description}</p>
     </div>
   );
 }
 
 function InfoTile({ label, value }: { label: string; value: string }) {
   return (
-    <div className="inventory-slot p-3">
-      <p className="text-xs font-bold text-[#b8d89b]">{label}</p>
-      <p className="font-black text-[#fff6ce]">{value}</p>
+    <div className="card">
+      <p className="stat-label">{label}</p>
+      <p className="card-title">{value}</p>
     </div>
   );
 }
@@ -200,21 +163,19 @@ function InfoTile({ label, value }: { label: string; value: string }) {
 function ResourceList({ resources }: { resources: ResourceItem[] }) {
   if (resources.length === 0) {
     return (
-      <div className="mt-5">
-        <EmptyState title="暂无资源条目" description="没有可下载或可访问的资源。" />
+      <div className="section-panel">
+        <EmptyState {...siteContent.emptyStates.resources} />
       </div>
     );
   }
 
   return (
-    <div className="mt-5 grid gap-4 md:grid-cols-2">
+    <div className="content-grid">
       {resources.map((resource) => (
-        <article className="inventory-slot p-4" key={resource.title}>
-          <h3 className="text-xl font-black text-[#fff6ce]">{resource.title}</h3>
-          <p className="mt-2 text-sm font-semibold leading-6 text-[#d7c095]">
-            {resource.description}
-          </p>
-          <p className="mt-3 text-sm font-black text-[#ffd166]">{resource.href ?? "暂无"}</p>
+        <article className="card" key={resource.title}>
+          <h3 className="card-title">{resource.title}</h3>
+          <p className="card-copy">{resource.description}</p>
+          <p className="status-pill">{resource.href ?? siteContent.labels.unavailable}</p>
         </article>
       ))}
     </div>
@@ -223,24 +184,17 @@ function ResourceList({ resources }: { resources: ResourceItem[] }) {
 
 function BuildGallery({ builds }: { builds: BuildShowcaseItem[] }) {
   if (builds.length === 0) {
-    return <EmptyState title="暂无建筑档案" description="没有可公开展示的建筑资料。" />;
+    return <EmptyState {...siteContent.emptyStates.buildGallery} />;
   }
 
   return (
-    <div className="space-y-4">
+    <div className="stack">
       {builds.map((build) => (
-        <article className="inventory-slot p-4" key={build.name}>
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <h3 className="text-xl font-black text-[#fff6ce]">{build.name}</h3>
-            <span className="bg-[#2d4021] px-2 py-1 text-xs font-black text-[#b8d89b]">
-              {build.status}
-            </span>
-          </div>
-          <p className="mt-2 text-sm font-semibold leading-6 text-[#d7c095]">
-            {build.description}
-          </p>
-          <p className="mt-3 text-xs font-bold text-[#ffd166]">
-            {build.location} / {build.builders.join(" / ")}
+        <article className="card" key={build.name}>
+          <h3 className="card-title">{build.name}</h3>
+          <p className="card-copy">{build.description}</p>
+          <p className="status-pill">
+            {build.status} / {build.location} / {build.builders.join(" / ")}
           </p>
         </article>
       ))}
@@ -250,27 +204,16 @@ function BuildGallery({ builds }: { builds: BuildShowcaseItem[] }) {
 
 function WikiGrid({ entries }: { entries: WikiEntry[] }) {
   if (entries.length === 0) {
-    return <EmptyState title="暂无游戏资料" description="没有已发布的规则、指令或资料条目。" />;
+    return <EmptyState {...siteContent.emptyStates.wiki} />;
   }
 
   return (
-    <div className="grid gap-4 md:grid-cols-3">
+    <div className="content-grid">
       {entries.map((entry) => (
-        <article className="wood-panel block-frame p-4" key={entry.title}>
-          <span className="inventory-slot mb-4 grid h-12 w-12 place-items-center text-2xl">
-            {entry.icon}
-          </span>
-          <h3 className="text-xl font-black text-[#fff6ce]">{entry.title}</h3>
-          <p className="mt-2 min-h-20 text-sm font-semibold leading-6 text-[#f4ddb0]">
-            {entry.summary}
-          </p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {entry.tags.map((tag) => (
-              <span className="bg-[#1d130b] px-2 py-1 text-xs font-bold text-[#b8d89b]" key={tag}>
-                {tag}
-              </span>
-            ))}
-          </div>
+        <article className="card" key={entry.title}>
+          <h3 className="card-title">{entry.title}</h3>
+          <p className="card-copy">{entry.summary}</p>
+          <p className="status-pill">{entry.tags.join(" / ")}</p>
         </article>
       ))}
     </div>
@@ -279,25 +222,19 @@ function WikiGrid({ entries }: { entries: WikiEntry[] }) {
 
 function Leaderboard({ entries }: { entries: LeaderboardEntry[] }) {
   if (entries.length === 0) {
-    return <EmptyState title="暂无玩家排行" description="没有可展示的玩家数据。" />;
+    return <EmptyState {...siteContent.emptyStates.players} />;
   }
 
   return (
-    <div className="space-y-3">
+    <div className="stack">
       {entries.map((player, index) => (
-        <div
-          className="inventory-slot grid grid-cols-[auto_1fr_auto] items-center gap-4 p-4"
-          key={player.name}
-        >
-          <span className="grid h-10 w-10 place-items-center bg-[#111] text-lg font-black text-[#ffd166]">
-            {index + 1}
-          </span>
-          <div>
-            <p className="font-black text-[#fff6ce]">{player.name}</p>
-            <p className="text-sm font-semibold text-[#b8d89b]">{player.title}</p>
-          </div>
-          <span className="font-black text-[#ffd166]">{player.score ?? "暂无"}</span>
-        </div>
+        <article className="card" key={player.name}>
+          <h3 className="card-title">
+            {index + 1}. {player.name}
+          </h3>
+          <p className="card-copy">{player.title}</p>
+          <p className="status-pill">{player.score ?? siteContent.labels.unavailable}</p>
+        </article>
       ))}
     </div>
   );
@@ -305,19 +242,18 @@ function Leaderboard({ entries }: { entries: LeaderboardEntry[] }) {
 
 function NewsGrid({ items }: { items: NewsItem[] }) {
   if (items.length === 0) {
-    return <EmptyState title="暂无公告" description="没有已发布的公告内容。" />;
+    return <EmptyState {...siteContent.emptyStates.news} />;
   }
 
   return (
-    <div className="grid gap-4 md:grid-cols-3">
+    <div className="content-grid">
       {items.map((item) => (
-        <article className="inventory-slot p-4" key={item.title}>
-          <div className="flex flex-wrap items-center gap-3 text-xs font-black text-[#b8d89b]">
-            <span>{item.date}</span>
-            <span className="bg-[#2d4021] px-2 py-1">{item.category}</span>
-          </div>
-          <h3 className="mt-3 text-xl font-black text-[#fff6ce]">{item.title}</h3>
-          <p className="mt-2 text-sm font-semibold leading-6 text-[#d7c095]">{item.summary}</p>
+        <article className="card" key={item.title}>
+          <p className="section-eyebrow">
+            {item.date} / {item.category}
+          </p>
+          <h3 className="card-title">{item.title}</h3>
+          <p className="card-copy">{item.summary}</p>
         </article>
       ))}
     </div>

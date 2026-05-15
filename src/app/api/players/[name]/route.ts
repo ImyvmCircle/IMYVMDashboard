@@ -12,7 +12,7 @@ export async function GET(
     return NextResponse.json(
       {
         found: false,
-        message: "暂未找到该玩家。当前使用 mock 数据，后续会接入真实玩家资料接口。",
+        message: "暂无该玩家资料。",
       },
       { status: 404 },
     );

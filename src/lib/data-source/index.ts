@@ -1,14 +1,41 @@
-import { mockDataSource } from "./mock-adapter";
 import type { DataSource } from "./types";
 
-function createDataSource(): DataSource {
-  const source = process.env.IMYVM_DATA_SOURCE ?? "mock";
+export const dataSource: DataSource = {
+  async getDashboardSummary() {
+    return {
+      source: "none",
+      serverStatus: {
+        onlinePlayers: null,
+        maxPlayers: null,
+        version: null,
+        tps: null,
+        recordedBuilds: null,
+      },
+      buildShowcase: [],
+      wikiEntries: [],
+      leaderboards: [],
+      newsItems: [],
+      resources: [],
+    };
+  },
 
-  if (source === "mock") {
-    return mockDataSource;
-  }
+  async getPlayerProfile() {
+    return null;
+  },
 
-  throw new Error(`Unsupported IMYVM_DATA_SOURCE: ${source}`);
-}
-
-export const dataSource = createDataSource();
+  async getHealth() {
+    return {
+      service: "imyvm-dashboard",
+      status: "ok",
+      source: "none",
+      checkedAt: new Date().toISOString(),
+      checks: {
+        dataSource: "ok",
+        buildShowcase: 0,
+        wikiEntries: 0,
+        leaderboards: 0,
+        resources: 0,
+      },
+    };
+  },
+};

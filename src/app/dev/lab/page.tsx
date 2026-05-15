@@ -1,11 +1,4 @@
 import { notFound } from "next/navigation";
-import {
-  buildShowcase,
-  leaderboards,
-  serverStatus,
-  supportLinks,
-  wikiEntries,
-} from "@/lib/mock-data";
 
 export const dynamic = "force-dynamic";
 
@@ -25,15 +18,15 @@ export default function DevLabPage() {
             本地效果预览台
           </h1>
           <p className="mt-3 max-w-3xl text-base font-semibold leading-7 text-[#fff1c6]">
-            这个页面只用于 `pnpm dev` 时集中查看视觉组件、状态样式和 mock 数据，不作为正式玩家入口。
+            这个页面只用于 `pnpm dev` 时集中查看视觉组件、表单控件、空状态和错误态，不作为正式玩家入口。
           </p>
         </header>
 
         <section className="grid gap-4 md:grid-cols-4">
-          <PreviewStat label="在线玩家" value={`${serverStatus.onlinePlayers} / ${serverStatus.maxPlayers}`} />
-          <PreviewStat label="TPS" value={serverStatus.tps.toFixed(1)} />
-          <PreviewStat label="版本" value={serverStatus.version} />
-          <PreviewStat label="建筑档案" value={String(serverStatus.recordedBuilds)} />
+          <PreviewStat label="在线玩家" value="暂无" />
+          <PreviewStat label="TPS" value="暂无" />
+          <PreviewStat label="版本" value="暂无" />
+          <PreviewStat label="建筑档案" value="暂无" />
         </section>
 
         <section className="grid gap-6 lg:grid-cols-[1fr_0.9fr]">
@@ -43,22 +36,8 @@ export default function DevLabPage() {
             </p>
             <h2 className="mb-5 text-3xl font-black text-[#fff6ce]">建筑卡片状态</h2>
             <div className="grid gap-4 md:grid-cols-2">
-              {buildShowcase.map((build) => (
-                <article className="wood-panel block-frame p-4" key={build.name}>
-                  <div className="flex flex-wrap items-center justify-between gap-3">
-                    <h3 className="text-xl font-black text-[#fff6ce]">{build.name}</h3>
-                    <span className="bg-[#2f1e10] px-3 py-1 text-xs font-black text-[#ffd166]">
-                      {build.status}
-                    </span>
-                  </div>
-                  <p className="mt-2 text-sm font-semibold leading-6 text-[#f4ddb0]">
-                    {build.description}
-                  </p>
-                  <p className="mt-3 text-xs font-bold text-[#21370f]">
-                    {build.location} / {build.builders.join(" / ")}
-                  </p>
-                </article>
-              ))}
+              <PreviewCard title="暂无建筑档案" description="没有可公开展示的建筑资料。" />
+              <PreviewCard title="暂无建筑截图" description="没有可展示的建筑图片。" />
             </div>
           </div>
 
@@ -68,31 +47,8 @@ export default function DevLabPage() {
             </p>
             <h2 className="mb-5 text-3xl font-black text-[#fff6ce]">Wiki 卡片状态</h2>
             <div className="space-y-4">
-              {wikiEntries.map((entry) => (
-                <article className="inventory-slot p-4" key={entry.title}>
-                  <div className="flex items-start gap-4">
-                    <span className="inventory-slot grid h-12 w-12 shrink-0 place-items-center text-2xl">
-                      {entry.icon}
-                    </span>
-                    <div>
-                      <h3 className="text-xl font-black text-[#fff6ce]">{entry.title}</h3>
-                      <p className="mt-2 text-sm font-semibold leading-6 text-[#d7c095]">
-                        {entry.summary}
-                      </p>
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {entry.tags.map((tag) => (
-                          <span
-                            className="bg-[#1d130b] px-2 py-1 text-xs font-bold text-[#b8d89b]"
-                            key={tag}
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </article>
-              ))}
+              <PreviewCard title="暂无游戏资料" description="没有已发布的规则、指令或资料条目。" />
+              <PreviewCard title="暂无资源条目" description="没有可下载或可访问的资源。" />
             </div>
           </div>
         </section>
@@ -104,21 +60,7 @@ export default function DevLabPage() {
             </p>
             <h2 className="mb-5 text-3xl font-black text-[#fff6ce]">排行榜列表</h2>
             <div className="space-y-3">
-              {leaderboards.slice(0, 3).map((player, index) => (
-                <div
-                  className="inventory-slot grid grid-cols-[auto_1fr_auto] items-center gap-3 p-3"
-                  key={player.name}
-                >
-                  <span className="grid h-9 w-9 place-items-center bg-[#111] font-black text-[#ffd166]">
-                    {index + 1}
-                  </span>
-                  <div>
-                    <p className="font-black text-[#fff6ce]">{player.name}</p>
-                    <p className="text-xs font-semibold text-[#b8d89b]">{player.title}</p>
-                  </div>
-                  <span className="font-black text-[#ffd166]">{player.score}</span>
-                </div>
-              ))}
+              <PreviewCard title="暂无玩家排行" description="没有可展示的玩家数据。" />
             </div>
           </div>
 
@@ -134,13 +76,10 @@ export default function DevLabPage() {
               />
               <select
                 className="inventory-slot min-h-12 px-4 font-bold text-[#fff6ce] outline-none"
-                defaultValue="support"
+                defaultValue="none"
+                disabled
               >
-                {supportLinks.map((link) => (
-                  <option key={link.title} value={link.title}>
-                    {link.title}
-                  </option>
-                ))}
+                <option value="none">暂无</option>
               </select>
               <textarea
                 className="inventory-slot min-h-28 resize-y px-4 py-3 font-bold text-[#fff6ce] outline-none placeholder:text-[#90765a]"
@@ -184,5 +123,14 @@ function PreviewStat({ label, value }: { label: string; value: string }) {
       <p className="text-sm font-bold text-[#b8d89b]">{label}</p>
       <p className="mt-2 text-3xl font-black text-[#fff6ce]">{value}</p>
     </div>
+  );
+}
+
+function PreviewCard({ title, description }: { title: string; description: string }) {
+  return (
+    <article className="inventory-slot p-4">
+      <h3 className="text-xl font-black text-[#fff6ce]">{title}</h3>
+      <p className="mt-2 text-sm font-semibold leading-6 text-[#d7c095]">{description}</p>
+    </article>
   );
 }

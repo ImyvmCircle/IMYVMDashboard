@@ -29,7 +29,7 @@ export type NewsItem = {
 export type LeaderboardEntry = {
   name: string;
   title: string;
-  score: string;
+  score: string | null;
 };
 
 export type PlayerProfile = {
@@ -42,11 +42,22 @@ export type PlayerProfile = {
 };
 
 export type ServerStatus = {
-  onlinePlayers: number;
-  maxPlayers: number;
-  version: string;
-  tps: number;
-  recordedBuilds: number;
+  onlinePlayers: number | null;
+  maxPlayers: number | null;
+  version: string | null;
+  tps: number | null;
+  recordedBuilds: number | null;
+};
+
+export type ResourceItem = {
+  title: string;
+  description: string;
+  href: string | null;
+};
+
+export type SupportLink = {
+  title: string;
+  description: string;
 };
 
 export type DashboardSummary = {
@@ -56,6 +67,7 @@ export type DashboardSummary = {
   wikiEntries: WikiEntry[];
   leaderboards: LeaderboardEntry[];
   newsItems: NewsItem[];
+  resources: ResourceItem[];
 };
 
 export type HealthStatus = {
@@ -68,6 +80,7 @@ export type HealthStatus = {
     buildShowcase: number;
     wikiEntries: number;
     leaderboards: number;
+    resources: number;
   };
 };
 

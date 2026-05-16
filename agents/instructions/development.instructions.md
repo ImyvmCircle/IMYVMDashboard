@@ -16,3 +16,4 @@ applyTo: "**"
 - `content-resources.instructions.md`：页面文案、资源和迁移包规则。
 - `versioning.instructions.md`：版本源和 tag 规则。
 - `documentation-validation.instructions.md`：README、changelog、git 和验证命令。
+- `player-documentation-perspective.instructions.md`：README 的用户侧文档视角。

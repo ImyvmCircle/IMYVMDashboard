@@ -56,8 +56,8 @@ pnpm build
 - 文本资源：`src/resources/site-content.ts`。页面展示文本、空状态、接口提示文本统一从这里读取。
 - 风格资源：`src/resources/theme.css`。本项目优先使用真实 Minecraft 贴图资源，并在这里统一管理它们在网页中的使用方式。
 - 小型公开资源：`public/resources/`。
-- 大型资源：`public/resources/external/`、`public/resources/downloads/`、`public/resources/packages/`。这些目录默认被 gitignore，避免仓库膨胀。
-- 远程资源清单：`resources/remote-resources.json`。只允许写真实资源 URL，不写示例 URL、占位 URL 或虚构资源。
+- 大型资源：`public/resources/external/`、`public/resources/downloads/`、`public/resources/packages/`。上述目录默认被 gitignore，避免仓库膨胀。
+- 远程资源清单：`resources/remote-resources.json`。清单写入真实资源 URL，不写示例 URL、占位 URL 或虚构资源。
 - 资源迁移包：`resources/packages/`。打包产物默认被 gitignore，用于从其他环境迁移完整资源。
 - Minecraft 贴图清单：`resources/minecraft-assets.json`。这里列出本项目识别为“真实 Minecraft 贴图”的标准资源。
 
@@ -74,7 +74,7 @@ pnpm resources:ensure
 pnpm resources:download
 ```
 
-`resources:ensure` 只补齐缺失或校验不匹配的资源；`resources:download` 会重新下载清单中的资源。页面引用被 gitignore 的资源前，启动检查必须能下载到该资源；没有资源时页面显示“暂无”。
+`resources:ensure` 补齐缺失或校验不匹配的资源；`resources:download` 会重新下载清单中的资源。页面引用被 gitignore 的资源前，启动检查需要能下载到该资源；没有资源时页面显示 `暂无`。
 
 导入真实 Minecraft 贴图：
 
@@ -91,7 +91,7 @@ pnpm resources:import-minecraft -- <你的 Minecraft 版本 jar、资源目录�
 - `assets/minecraft/textures/block/cobblestone.png`
 - `assets/minecraft/textures/block/deepslate.png`
 
-这些贴图会被导入到 `public/resources/minecraft/block/`，并立即驱动首页与预览页的背景、面板、按钮、输入框和草地/泥土区域。
+上列贴图会被导入到 `public/resources/minecraft/block/`，并驱动首页与预览页的背景、面板、按钮、输入框和草地/泥土区域。
 
 关于 Minecraft Wiki：我已核对其资源使用边界。Wiki 上的多数贴图和方块图像用于 wiki 展示，不应直接复制进本项目。因此本项目不直接从 Minecraft Wiki 拉取贴图文件，而是用它来确认资源名称和对应的真实游戏贴图，再从你自有的 Minecraft 资源目录或可用资源包中导入。
 
@@ -126,7 +126,7 @@ pnpm resources:unpack -- resources/packages/imyvm-dashboard-resources.tar.gz
 - README 同步：修改用户可见机制、资源入口、版本规则或本地运行方式时，同步更新 README。
 - Changelog 同步：版本相关变更写入 README Changelog。
 - 面向使用者写作：文档以使用者可理解的行为、入口和限制为主，不暴露不必要实现细节。
-- 外部依赖校验：涉及 IMYVM/WorldGeo 外部 API、发布制品或资源时，以已发布接口、版本号、资源清单为准；相邻目录源码只能作为参考。
+- 外部依赖校验：涉及 IMYVM/WorldGeo 外部 API、发布制品或资源时，以已发布接口、版本号、资源清单为准；相邻目录源码用于参考。
 - 集中配置与资源：文本、风格、资源入口不散落在业务组件中。
 
 ## Docker 部署

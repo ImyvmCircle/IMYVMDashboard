@@ -10,6 +10,4 @@ applyTo: "README.md,agents/**/*.md,src/**/*"
 4. 文档中只使用项目内相对路径，不暴露本机绝对路径、项目外路径或与项目交付无关的本地环境位置。
 5. 用户侧机制变化同步 README 和 changelog。
 6. changelog 描述保持简洁；不自行新建版本，不自行更新版本号。
-7. 不主动使用 git；prompt 要求 git、提交、推送、拉取或发布时，先同步远端，再遵循既有 commit 格式，不添加 co-author trailer。
-8. 完成后给一条符合项目既有格式的 commit 描述建议。
-9. 代码修改使用 `pnpm lint`、`pnpm typecheck`、`pnpm build`。
+7. 代码修改使用 `pnpm lint`、`pnpm typecheck`、`pnpm build`。
